@@ -1,0 +1,729 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{color}
+\usepackage{amsmath}
+
+\begin{document}
+
+\begin{center}
+  \textbf{Weakly Compressible AB Diblock + Bare A-like Nanoparticle Derivation
+    with Smearing}
+\end{center}
+
+\section{Canonical Ensemble Derivation (with $w_+$ and $w_{AB}^{(\pm)}$ fields)}
+
+The system is composed of $n_D$ AB diblock chains and $n_P$ bare, A-like
+  nanoparticles.
+Each diblock chain has $P_A + P_B = P$ segments.
+$\chi$ is the interaction strength between A and B components.
+Segment center densities are defined as
+\begin{align*}
+  \hat{\rho}_{DA,c} (\mathbf{r}) =&
+    \sum_{i=1}^{n_D} \sum_{j=1}^{P_A}
+    \delta(\mathbf{r} - \mathbf{r}_{i,j}) \\
+  \hat{\rho}_{DB,c} (\mathbf{r}) =&
+    \sum_{i=1}^{n_D} \sum_{j=P_A+1}^{P}
+    \delta(\mathbf{r} - \mathbf{r}_{i,j}) \\
+  \hat{\rho}_{P,c} (\mathbf{r}) =&
+    \sum_{i=1}^{n_P}
+    \delta(\mathbf{r} - \mathbf{r}_i)
+\end{align*}
+For all of the polymer segments, the full (smeared) segment densities are given
+  by:
+\begin{align*}
+  \hat{\rho}_K(\mathbf{r}) = (h \ast \hat{\rho}_{K,c})(\mathbf{r})
+\end{align*}
+where $K \in \{ DA, DB\}$ and $h$ is the segment density distribution
+  function given by the Gaussian
+\begin{align*}
+  h(\mathbf{r}) = \left( \frac{1}{2\pi a^2} \right)^{d/2}
+  \exp \left( - \frac{|\mathbf{r}|^2}{2a^2}  \right)
+\end{align*}
+where $a$ is the segment size and $d$ is the number of dimensions.
+The full nanoparticle density distribution is given by
+\begin{align*}
+  \hat{\rho}_P = (\Gamma \ast \hat{\rho}_{P,c}) (\mathbf{r})
+\end{align*}
+where
+\begin{align*}
+  \Gamma(\mathbf{r}) = \frac{\rho_0}{2}
+    \textrm{erfc} \left( \frac{|\mathbf{r}| - R_P}{\xi}  \right)
+\end{align*}
+where $R_P$ is the nanoparticle radius, $\rho_0$ is the bulk density,
+  and $\xi$ controls the nanoparticle interface width.
+
+The harmonic bond potential between connected segments is given by
+\begin{align*}
+  \beta U_0 =   \sum_{i=1}^{n_D}    \sum_{j=1}^{P-1}
+    \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
+         { 2 b^2 }
+\end{align*}
+The nonbonded interaction potential is given by
+\begin{align*}
+  \beta U_1 = \frac{\chi}{\rho_0} \int d\mathbf{r} \hat{\rho}_A \hat{\rho}_B
+\end{align*}
+where $\hat{\rho}_A = \hat{\rho}_{DA}$ if the particles are neutral or
+  $\hat{\rho}_A = \hat{\rho}_{DA} + \hat{\rho}_P$ if the particles are A-like,
+  and $\hat{\rho}_B = \hat{\rho}_{DB}$.
+A Helfand incompressibility potential penalizes deviations away from $\rho_0$,
+  and is given by
+\begin{align*}
+  \beta U_2 = \frac{\kappa}{2 \rho_0} \int d \mathbf{r}
+    \left[ \hat{\rho}_+ (\mathbf{r}) - \rho_0 \right] ^ 2
+\end{align*}
+where $\hat{\rho}_+ = \hat{\rho}_{DA} + \hat{\rho}_{DB} + \hat{\rho}_P$
+  is the local total density.
+
+This gives us a canonical partition function of
+\begin{align*}
+  Z_C = \frac{1}{n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+    \int d \mathbf{r}^{n_DN_D} \int d \mathbf{r}^{n_P}
+    \exp \left( -\beta U_0 - \beta U_1 - \beta U_2 \right)
+\end{align*}
+To prepare this for a particle-to-field transformation, let's define
+\begin{align*}
+  \hat{\rho}_{\pm} (\mathbf{r}) =
+    \hat{\rho}_A(\mathbf{r}) \pm \hat{\rho}_B(\mathbf{r})
+\end{align*}
+With this definition, we can rewrite $\beta U_1$ as
+\begin{align*}
+  \beta U_1 = \frac{\chi}{4\rho_0}
+    \int d \mathbf{r}
+    \left( \hat{\rho}_+(\mathbf{r})^2 - \hat{\rho}_-(\mathbf{r})^2 \right)
+\end{align*}
+From there, using the Gaussian functional integral, we get
+\begin{align*}
+  \exp(-\beta U_1) =&
+    \frac{1}{\Omega_{AB}^{(+)} \Omega_{AB}^{(-)}}
+    \int \mathcal{D} w_{AB}^{(+)} \int \mathcal{D} w_{AB}^{(-)} \\
+    &\times
+    \exp \left(
+      -\frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
+      - i\int d \mathbf{r} \hat{\rho}_+(\mathbf{r}) w_{AB}^{(+)}(\mathbf{r})
+    \right) \\
+    &\times
+    \exp \left(
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2
+      +  \int d \mathbf{r} \hat{\rho}_-(\mathbf{r}) w_{AB}^{(-)}(\mathbf{r})
+    \right)
+\end{align*}
+and
+\begin{align*}
+  \exp(- \beta U_2) =&
+    \frac{1}{\Omega_+}
+    \int \mathcal{D} w_+
+    \exp \left(
+      -\frac{\rho_0}{2\kappa}
+      \int d \mathbf{r} w_+(\mathbf{r})^2
+      + i\int d \mathbf{r} (\rho_0 - \hat{\rho}_+(\mathbf{r})) w_+(\mathbf{r})
+    \right) \\
+\end{align*}
+Now the canonical partition function looks like
+\begin{align*}
+  Z_C =& \frac{1}{n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \int \mathcal{D} w_+
+    \int \mathcal{D} w_{AB}^{(+)}
+    \int \mathcal{D} w_{AB}^{(-)} \\
+    &\times
+    \exp \left(
+      - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
+      + i \rho_0 \int d\mathbf{r} w_+
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+    \right) \\
+    &\times \int d \mathbf{r}^{n_DN_D} \int d \mathbf{r}^{n_P}
+    \exp \left(
+      - \sum_{i=1}^{n_D}    \sum_{j=1}^{P-1}
+      \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
+           { 2 b^2 }
+      + \int d \mathbf{r} \left( -i w_+ \hat{\rho}_+
+                                 -i w_{AB}^{(+)} \hat{\rho}_+
+                                 +  w_{AB}^{(-)} \hat{\rho}_- \right)
+    \right)
+\end{align*}
+Using the definitions of $\hat{\rho}_\pm$, and defining
+  $w_A= i w_+ + i w_{AB}^{(+)} - w_{AB}^{(-)} $ and
+  $w_B= i w_+ + i w_{AB}^{(+)} + w_{AB}^{(-)} $ we can rewrite
+\begin{align*}
+  \exp \left(
+    \int d \mathbf{r} \left( -i w_+ \hat{\rho}_+
+                             -i w_{AB}^{(+)} \hat{\rho}_+
+                             +  w_{AB}^{(-)} \hat{\rho}_- \right)
+  \right)
+\end{align*}
+as
+\begin{align*}
+  \prod_{j}^{n_{D}N_{DA}}
+  \exp \left( -\omega_A(\mathbf{r}_j) \right)
+  \prod_{k}^{n_{D}N_{DB}}
+  \exp \left( -\omega_B(\mathbf{r}_k) \right).
+  \prod_{l}^{n_P}
+  \exp \left( -\omega_P(\mathbf{r}_l) \right).
+\end{align*}
+where $\omega_A$ and $\omega_B$ are defined as
+\begin{align*}
+  \omega_K(\mathbf{r}) = (h \ast w_K)(\mathbf{r})
+\end{align*}
+and $\omega_P$ is defined as
+\begin{align*}
+  \omega_P(\mathbf{r}) = (\Gamma \ast w_A)(\mathbf{r})
+\end{align*}
+Additionally, defining the bond transition probability $\Phi$ as
+\begin{align*}
+  \Phi(\mathbf{r} - \mathbf{r}^\prime) =
+    \left( \frac{3}{2\pi b^2} \right) ^ {d/2}
+    \exp \left( \frac{-3| \mathbf{r} - \mathbf{r}^\prime |^2}{2b^2} \right),
+\end{align*}
+we can rewrite the canonical partition function equation as
+\begin{align*}
+  Z_C =& \frac{1}{n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \int \mathcal{D} w_+
+    \int \mathcal{D} w_{AB}^{(+)}
+    \int \mathcal{D} w_{AB}^{(-)} \\
+    &\times
+    \exp \left(
+      - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
+      + i \rho_0 \int d\mathbf{r} w_+
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+    \right) \\
+    &\times \int d \mathbf{r}^{n_DN_D} \int d \mathbf{r}^{n_P}
+      \prod_j^{n_D} \prod_k^{N_D-1}
+      \Phi(\mathbf{r}_{j,k+1} - \mathbf{r}_{j,k}) \\
+    &\times
+    \prod_{j}^{n_{D}N_{DA}} \exp \left( -\omega_A(\mathbf{r}_j) \right)
+    \prod_{k}^{n_{D}N_{DB}} \exp \left( -\omega_B(\mathbf{r}_k) \right).
+    \prod_{l}^{n_P}         \exp \left( -\omega_P(\mathbf{r}_l) \right)
+\end{align*}
+Then, we define $Q_D$ as
+\begin{align*}
+  Q_D = \frac{1}{V} \int d\mathbf{r} q_D (N_D, \mathbf{r})
+\end{align*}
+where
+\begin{align*}
+  q_D(j+1, \mathbf{r}) = \exp(-\omega_{X_{j+1}}(\mathbf{r}))
+    \int d \mathbf{r}^\prime \Phi(\mathbf{r} - \mathbf{r}^\prime)
+    q(j, \mathbf{r})
+\end{align*}
+where $X_{j+1}$ is either A or B depending on type of segment $j+1$
+  and $q_D(1, \mathbf{r}) = \exp(-\omega_A(\mathbf{r}))$.
+We also define $Q_P$ as
+\begin{align*}
+  Q_P = \frac{1}{V} \int d\mathbf{r} \exp (-\omega_P)
+\end{align*}
+With these definitions, we get
+\begin{align*}
+  Z_C =& \frac{V^{n_D+n_P}}
+              {n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \left( \frac{2\pi b^2}{3} \right)
+      ^{(d/2)n_D(N_D-1)}
+    \int \mathcal{D} w_+ \iint \mathcal{D} w_{AB}^{(\pm)} \\
+    &\times \exp \left(
+      - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
+      + i \rho_0 \int d\mathbf{r} w_+
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+    \right) \\
+    &Q_D^{n_D} Q_P^{n_P}
+\end{align*}
+We can rewrite this as
+\begin{align*}
+  Z_C =& \frac{V^{n_D+n_P}}
+              {n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \left( \frac{2\pi b^2}{3} \right)
+      ^{(d/2)n_D(N_D-1)} \\
+    &\int \mathcal{D} w_+
+    \iint \mathcal{D} w_{AB}^{(\pm)}
+    \exp \left(
+      -\mathcal{H}[w_+, w_{AB}^{(\pm)}]
+    \right)
+\end{align*}
+where
+\begin{align*}
+  \mathcal{H}[w_+, w_{AB}^{(\pm)}] =&
+    \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
+    - i \rho_0 \int d\mathbf{r} w_+
+    + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
+    + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2 \\
+    &- n_D \log Q_D - n_P \log Q_P
+\end{align*}
+
+\section{Grand Canonical Derivation}
+
+The grand canonical partition function is then given by
+\begin{align*}
+  Z_G(\mu_{D}, \mu_P, V, T) =
+    \sum_{n_D}^\infty \exp(\beta\mu_D n_D)
+    \sum_{n_P}^\infty \exp(\beta\mu_P n_P)
+    Z_C(n_D, n_P, V, T)
+\end{align*}
+Now let's define activities $z_D$ and $z_P$ as
+\begin{align*}
+  z_K =
+    z_{K0}
+    \exp \left(\beta \mu_K \right)
+\end{align*}
+where
+\begin{align*}
+  z_{D0} =
+    \frac{1}{\lambda_T^{3}}
+    \left( \frac{2\pi b^2}{3} \right)^{d/2(N_D-1)}
+\end{align*}
+and
+\begin{align*}
+  z_{P0} =
+    \frac{1}{\lambda_T^{3}}
+\end{align*}
+Now we can rewrite equation $Z_G$ as
+\begin{align*}
+  Z_G(\mu_D, \mu_P, V, T) =&
+    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \int \mathcal{D} w_+ \iint \mathcal{D} w_{AB}^{(\pm)} \\
+    &\times \exp \left(
+      - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
+      + i \rho_0 \int d\mathbf{r} w_+
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+    \right) \\
+    &\times \sum_{n_D}^\infty \frac{(z_DVQ_D)^{n_D}}{n_D!}
+    \sum_{n_P}^\infty \frac{(z_PVQ_P)^{n_P}}{n_P!} \\
+    =& \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \int \mathcal{D} w_+
+    \iint \mathcal{D} w_{AB}^{(\pm)} \\
+    &\times \exp \left(
+      - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
+      + i \rho_0 \int d\mathbf{r} w_+
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
+      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+    \right) \\
+    &\times \exp (z_DVQ_D) \exp (z_PVQ_P)
+\end{align*}
+And finally, we get
+\begin{align*}
+  Z_G(\mu_D, \mu_P, V, T) =&
+    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \int \mathcal{D} w_+ \iint \mathcal{D} w_{AB}^{(\pm)}
+    \exp \left( - \mathcal{H}_G \left[w_+, w_{AB}^{(\pm)} \right] \right)
+\end{align*}
+where
+\begin{align*}
+  \mathcal{H}_G[w_+, w_{AB}^{(\pm)}] =&
+    \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
+    - i \rho_0 \int d\mathbf{r} w_+
+    + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
+    + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2 \\
+    &- z_D V Q_D - z_P V Q_P
+\end{align*}
+
+\section{Canonical 1S Update Derivation}
+
+\subsection{$w_+$ Field}
+
+First let's do the $w_+$ update derivation for the Canonical Ensemble.
+\begin{align*}
+  w_+^{t+1} =
+    w_+^t - \lambda \left[
+      \frac{\delta \mathcal{H}}{\delta w_+^t}
+      + \left(  \frac{\delta \mathcal{H}}{\delta w_+^{t+1}} \right) _{lin}
+      - \left(  \frac{\delta \mathcal{H}}{\delta w_+^{t}} \right) _{lin}
+    \right]
+\end{align*}
+Taking the Fourier Transform,
+\begin{align*}
+  \hat{w}_+^{t+1} =
+    \hat{w}_+^t - \lambda \left[
+      \hat{\frac{\delta \mathcal{H}}{\delta w_+^t}}
+      + \left( \hat{ \frac{\delta \mathcal{H}}{\delta w_+^{t+1}}} \right) _{lin}
+      - \left( \hat{ \frac{\delta \mathcal{H}}{\delta w_+^{t}}} \right) _{lin}
+    \right]
+\end{align*}
+Then, after plugging in the correct expressions, we can solve for
+  $\hat{w}_+^{t+1}$ and take the inverse Fourier Transform to get $w_+^{t+1}$.
+\begin{align*}
+  \frac{\delta \mathcal{H}}{\delta w_+^t} &=
+    \frac{\rho_0}{\kappa} w_+^t
+    - i\rho_0
+    + i [ (\rho_{DA,c} \ast h)(\mathbf{r})
+          + (\rho_{DB,c} \ast h)(\mathbf{r})
+          + (\rho_{P,c} \ast \Gamma)(\mathbf{r}) ] \\
+  \hat{\frac{\delta \mathcal{H}}{\delta w_+^t}} &=
+    \frac{\rho_0}{\kappa} \hat{w}_+^t
+    - i \rho_0 \delta(\mathbf{k})
+    + i [ \hat{\rho}_{DA,c} \hat{h}
+          + \hat{\rho}_{DB,c} \hat{h}
+          + \hat{\rho}_{P,c}  \hat{\Gamma} ] \\
+  \left( \hat{\frac{\delta \mathcal{H}}{\delta w_+^t}} \right) _{lin} &=
+    \frac{\rho_0}{\kappa} \hat{w}_+^t
+    - i \hat{h}^2 \phi_D \rho_0 N_D
+      (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) i \hat{w}_+^t
+    - i \phi_P \rho_0 \hat{\Gamma}^2 i \hat{w}_+^t \\
+  &= \frac{\rho_0}{\kappa} \hat{w}_+^t
+    + \hat{h}^2 \phi_D \rho_0 N_D
+      (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) \hat{w}_+^t
+    + \phi_P \rho_0 \hat{\Gamma}^2 \hat{w}_+^t
+\end{align*}
+Assembling the pieces, we get
+\begin{align*}
+  \hat{w}_+^{t+1} =
+    \hat{w}_+^t - \lambda \left[
+      \frac{\rho_0}{\kappa} \hat{w}_+^t
+      - i \rho_0 \delta(\mathbf{k})
+      + i ( \hat{\rho}_{DA,c} \hat{h}
+            + \hat{\rho}_{DB,c} \hat{h}
+            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+      + A (\hat{w}_+^{t+1} - \hat{w}_+^t)
+    \right]
+\end{align*}
+where
+\begin{align*}
+  A &=
+  \frac{1}{w_+^t}
+  \left( \hat{\frac{\delta \mathcal{H}}{\delta w_+^t}} \right) _{lin}
+  =
+  \frac{1}{w_+^{t+1}}
+  \left( \hat{\frac{\delta \mathcal{H}}{\delta w_+^{t+1}}} \right) _{lin} \\
+  &=
+  \frac{\rho_0}{\kappa}
+      + \hat{h}^2 \phi_D \rho_0 N_D
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+      + \phi_P \rho_0 \hat{\Gamma}^2
+\end{align*}
+If we also let $B$ and $F$ equal
+\begin{align*}
+  B &= A - \frac{\rho_0}{\kappa} \\
+    &= \hat{h}^2 \phi_D \rho_0 N_D
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+      + \phi_P \rho_0 \hat{\Gamma}^2 \\
+  F &= - i \rho_0 \delta (\mathbf{k})
+       + i ( \hat{\rho}_{DA,c} \hat{h}
+            + \hat{\rho}_{DB,c} \hat{h}
+            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+\end{align*}
+Then
+\begin{align*}
+  \hat{w}_+^{t+1} ( 1 + \lambda A ) =
+  \hat{w}_+^t - \lambda \left( F - B \hat{w}_+^t \right) \\
+  \hat{w}_+^{t+1} =
+  \frac{\hat{w}_+^t - \lambda \left( F - B \hat{w}_+^t \right)}
+       {1 + \lambda A}
+\end{align*}
+
+\subsection{$w_{AB}^{(+)}$}
+
+For the $w_{AB}^{(+)}$ field, the relevant expressions are:
+\begin{align*}
+  \left. \frac{\delta \mathcal{H}}{\delta  w_{AB}^{(+)} } \right|_t &=
+    \frac{2\rho_0}{\chi} \left. w_{AB}^{(+)} \right|_t
+    + i [ (\rho_{DA,c} \ast h)(\mathbf{r})
+          + (\rho_{DB,c} \ast h)(\mathbf{r})
+          + (\rho_{P,c} \ast \Gamma)(\mathbf{r}) ] \\
+    \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AB}^{(+)}}} \right|_t &=
+    \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(+)} \right|_t
+    + i [ \hat{\rho}_{DA,c} \hat{h}
+          + \hat{\rho}_{DB,c} \hat{h}
+          + \hat{\rho}_{P,c}  \hat{\Gamma} ] \\
+  \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AB}^{(+)}}} \right| ^{lin}_t &=
+    \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(+)} \right|_t
+    - i \hat{h}^2 \phi_D \rho_0 N_D
+      (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) i \left.
+        \hat{w}_{AB}^{(+)} \right|_t
+    - i \phi_P \rho_0 \hat{\Gamma}^2 i \left. \hat{w}_{AB}^{(+)} \right|_t \\
+  &= \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(+)} \right|_t
+    + \hat{h}^2 \phi_D \rho_0 N_D
+      (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+        \left. \hat{w}_{AB}^{(+)} \right|_t
+    + \phi_P \rho_0 \hat{\Gamma}^2 \left. \hat{w}_{AB}^{(+)} \right|_t
+\end{align*}
+This gives us
+\begin{align*}
+  \left. \hat{w}_{AB}^{(+)} \right|_{t+1} =
+    \left. \hat{w}_{AB}^{(+)} \right|_t - \lambda \left[
+      \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(+)} \right|_t
+      + i ( \hat{\rho}_{DA,c} \hat{h}
+            + \hat{\rho}_{DB,c} \hat{h}
+            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+      + A ( \left. \hat{w}_{AB}^{(+)} \right|_{t+1}
+            - \left. \hat{w}_{AB}^{(+)} \right|_t)
+    \right]
+\end{align*}
+where
+\begin{align*}
+  A &=
+  \frac{2\rho_0}{\chi}
+      + \hat{h}^2 \phi_D \rho_0 N_D
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+      + \phi_P \rho_0 \hat{\Gamma}^2
+\end{align*}
+If we let $B$ and $F$ equal
+\begin{align*}
+  B &= A - \frac{2\rho_0}{\chi} \\
+    &= \hat{h}^2 \phi_D \rho_0 N_D
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+      + \phi_P \rho_0 \hat{\Gamma}^2 \\
+  F &= + i ( \hat{\rho}_{DA,c} \hat{h}
+            + \hat{\rho}_{DB,c} \hat{h}
+            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+\end{align*}
+Then
+\begin{align*}
+  \left. \hat{w}_{AB}^{(+)} \right|_{t+1} ( 1 + \lambda A ) =
+    \left. \hat{w}_{AB}^{(+)} \right|_t
+    - \lambda \left( F - B \left. \hat{w}_{AB}^{(+)} \right|_t \right) \\
+  \left. \hat{w}_{AB}^{(+)} \right|_{t+1} =
+  \frac{\left. \hat{w}_{AB}^{(+)} \right|_t - \lambda
+          \left( F - B \left. \hat{w}_{AB}^{(+)} \right|_t \right)}
+       {1 + \lambda A}
+\end{align*}
+
+\subsection{$w_{AB}^{(-)}$ Field}
+
+For the $w_{AB}^{(-)}$ field, the relevant expressions are:
+\begin{align*}
+  \left. \frac{\delta \mathcal{H}}{\delta w_{AB}^{(-)}} \right|_t &=
+    \frac{2 \rho_0}{\chi} \left. w_{AB}^{(-)} \right|_t
+    - (\rho_{DA,c} \ast h)(\mathbf{r})
+    + (\rho_{DB,c} \ast h)(\mathbf{r})
+    - (\rho_{P,c} \ast \Gamma)(\mathbf{r}) \\
+  \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AB}^{(-)}}} \right|_t &=
+    \frac{2 \rho_0}{\chi} \left. \hat{w}_{AB}^{(-)} \right|_t
+    - \hat{\rho}_{DA,c} \hat{h}
+    + \hat{\rho}_{DB,c} \hat{h}
+    - \hat{\rho}_{P,c}  \hat{\Gamma} \\
+  \left.
+    \hat{\frac{\delta \mathcal{H}}{\delta w_{AB}^{(-)}}}
+  \right| ^{lin}_t &=
+    \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(-)} \right|_t
+\end{align*}
+Note that we don't do the weak inhomogeneity expansion here because the
+  $w_{AB}^{(-)}$ field tends to be much less stiff than the $w_+$ fields and so
+  doesn't need the extra approximation.
+Now we get
+\begin{align*}
+  \left. \hat{w}_{AB}^{(-)} \right|_{t+1} &=
+    \left. \hat{w}_{AB}^{(-)} \right|_t - \lambda \left[
+      \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(-)} \right|_t
+      - \hat{\rho}_{DA,c} \hat{h}
+      + \hat{\rho}_{DB,c} \hat{h}
+      - \hat{\rho}_{P,c}  \hat{\Gamma}
+      + \frac{2\rho_0}{\chi}
+        ( \left. \hat{w}_{AB}^{(-)}\right|_{t+1}
+          - \left. \hat{w}_{AB}^{(-)} \right|_t
+        )
+    \right] \\
+  \left. \hat{w}_{AB}^{(-)} \right|_{t+1} ( 1 + \lambda \frac{2 \rho_0}{\chi} ) &=
+    \left. \hat{w}_{AB}^{(-)} \right|_t - \lambda \left(
+      - \hat{\rho}_{DA,c} \hat{h}
+      + \hat{\rho}_{DB,c} \hat{h}
+      - \hat{\rho}_{P,c}  \hat{\Gamma}
+    \right) \\
+  \left. \hat{w}_{AB}^{(-)} \right|_{t+1} &=
+    \frac{
+      \left. \hat{w}_{AB}^{(-)} \right|_t - \lambda \left(
+        - \hat{\rho}_{DA,c} \hat{h}
+        + \hat{\rho}_{DB,c} \hat{h}
+        - \hat{\rho}_{P,c}  \hat{\Gamma}
+      \right)
+    }
+    {
+      \left( 1 + \lambda \frac{2 \rho_0}{\chi} \right)
+    }
+\end{align*}
+
+\section{Calculating Densities}
+
+\subsection{Canonical Ensemble}
+
+In the Canonical Ensemble, the polymer densities are given by
+\begin{align*}
+  \rho_{DA,c} &=
+    -n_D \frac{\delta \log Q_D}{\delta \omega_A(\mathbf{r})}
+    = \frac{n_D}{V Q_D}
+    \sum_{j=1}^{P_A}
+    q_D(j, \mathbf{r})
+    e^{\omega_A(\mathbf{r})}
+    q_D^\dagger(P-j, \mathbf{r}) \\
+  \rho_{DB,c} &=
+    -n_D \frac{\delta \log Q_D}{\delta \omega_B(\mathbf{r})}
+    = \frac{n_D}{V Q_D}
+    \sum_{j=P_A+1}^{P}
+    q_D(j, \mathbf{r})
+    e^ {\omega_B(\mathbf{r})}
+    q_D^\dagger(P-j, \mathbf{r})
+\end{align*}
+and the particle density is given by
+\begin{align*}
+  \rho_P(\mathbf{r}) =
+    -n_P \frac{\delta \log Q_P}{\delta \omega_P(\mathbf{r})}
+    = \frac{n_P}{V Q_P} e^{-\omega_P(\mathbf{r})}
+\end{align*}
+
+\subsection{Grand Canonical Ensemble}
+
+In the Grand Canonical Ensemble, the polymer densities are given by
+\begin{align*}
+  \rho_{DA,c} &=
+    -z_D V \frac{\delta Q_D}{\delta \omega_A(\mathbf{r})}
+    = z_D
+    \sum_{j=1}^{P_A}
+    q_D(j, \mathbf{r})
+    e^{\omega_A(\mathbf{r})}
+    q_D^\dagger(P-j, \mathbf{r}) \\
+  \rho_{DB,c} &=
+    -z_D \frac{\delta Q_D}{\delta \omega_B(\mathbf{r})}
+    = z_D
+    \sum_{j=P_A+1}^{P}
+    q_D(j, \mathbf{r})
+    e^ {\omega_B(\mathbf{r})}
+    q_D^\dagger(P-j, \mathbf{r})
+\end{align*}
+and the particle density is given by
+\begin{align*}
+  \rho_P(\mathbf{r}) =
+    -z_P \frac{\delta Q_P}{\delta \omega_P(\mathbf{r})}
+    = z_P e^{-\omega_P(\mathbf{r})}
+\end{align*}
+
+\section{Comparing $z_D$ values with 2 Field Model}
+
+From the 2-field model derivation,
+\begin{align*}
+  z_{D0,2} = \frac{1}{\lambda_T^3}
+  \exp \left( -\frac{N_D\chi}{4}  \right)
+  \left( \frac{2\pi b^2}{3} \right)^{d/2(N_D-1)} 
+\end{align*}
+And from the 3-field model derivation, (this document)
+\begin{align*}
+  z_{D0,3} = \frac{1}{\lambda_T^3}
+  \left( \frac{2\pi b^2}{3} \right)^{d/2(N_D-1)} 
+\end{align*}
+Therefore, to compare 2-field and 3-field simulations, we need to take this
+  into account to make sure $\mu_D$ matches between them.
+Thus, given a 3-field model using $z_{D,3}$, the corresponsing value of
+  $z_{D,2}$ necessary to match a 2-field model is
+\begin{align*}
+  z_{D,2} = \exp \left( -\frac{N_D\chi}{4}  \right) z_{D,3}
+\end{align*}
+
+\section{Simplification for Homogeneous System}
+
+In a homogeneous system, the fields $w_+$, $w_{AB}^{(+)}$, and $w_{AB}^{(-)}$
+  are all constants.
+To simplify solving the equations, it is convenient to use only real numbers by
+  solving for $iw_+$, $iw_{AB}^{(+)}$, and $w_{AB}^{(-)}$.
+With this in mind, we can rewrite the Grand Canonical Hamiltonian as
+
+\begin{align*}
+  H_G = - &\frac{\rho_0 V}{2\kappa} (i w_+)^2
+        - \rho_0 V (i w_+)
+        - \frac{\rho_0 V}{\chi} (i w_{AB}^{(+)})^2
+        + \frac{\rho_0 V}{\chi} (w_{AB}^{(-)})^2
+        - z_D V Q_D
+        - z_P V Q_P
+\end{align*}
+
+If we solve with simple Euler equations, we get
+
+\begin{align*}
+  iw_+^{t+1} &= iw_+^t - i\lambda_+ \frac{\partial H_G/V}{\partial w_+^t} \\
+    &= iw_+^t + \lambda_+ \frac{\partial H_G/V}{\partial iw_+^t} \\
+  \left. iw_{AB}^{(+)} \right|_{t+1} &= \left. iw_{AB}^{(+)} \right|_t
+    - i\lambda_+ \left. \frac{\partial H_G/V}{\partial w_{AB}^{(+)}} \right|_t \\
+    &= \left. iw_{AB}^{(+)} \right|_t
+    + \lambda_+ \left. \frac{\partial H_G/V}{\partial iw_{AB}^{(+)}} \right|_t \\
+  \left. w_{AB}^{(-)} \right|_{t+1} &= \left. w_{AB}^{(-)} \right|_t
+    - \lambda_- \left. \frac{\partial H_G/V}{\partial w_{AB}^{(-)}} \right|_t
+\end{align*}
+
+With this in mind, we can rewrite the partition functions as
+
+\begin{align*}
+  Q_D &= \exp(-P_A w_A - P_B w_B) \\
+  Q_P &= \exp(-\rho_0 V_P w_A)
+\end{align*}
+
+Let's note that
+
+\begin{align*}
+  \rho_D &= \rho_{DA} + \rho_{DB} \\
+  &= -z_D \frac{\partial Q_D}{\partial \omega_A}
+     -z_D \frac{\partial Q_D}{\partial \omega_B} \\
+  &= -z_D \frac{\partial Q_D}{\partial w_A}
+     -z_D \frac{\partial Q_D}{\partial w_B} \\
+  &= z_D P \exp(-P_A w_A - P_B w_B) \\
+  &= z_D P Q_D
+\end{align*}
+
+and
+
+\begin{align*}
+  \rho_{P,c} &= -z_P \frac{\partial Q_P}{\partial \omega_P} \\
+  &= z_P \exp(-\rho_0 V_P w_A) \\
+  \rho_{P,c} &= z_P Q_P \\
+  \rho_P &= \rho_0 V_P z_P Q_P
+\end{align*}
+
+with the following derivatives:
+
+\begin{align*}
+  \frac{\partial H_G/V}{\partial iw_+} &=
+  - \frac{\rho_0}{\kappa} (iw_+)
+  - \rho_0
+  - \frac{2 \rho_0}{\chi} (iw_{AB}^{(+)})
+  + \frac{2 \rho_0}{\chi} (w_{AB}^{(-)})
+  - z_D \frac{\partial Q_D}{\partial iw_+}
+  - z_P \frac{\partial Q_P}{\partial iw_+}
+\end{align*}
+
+With this in mind, we can rewrite the partition functions as
+
+\begin{align*}
+  Q_D &= \exp(-f P w_A - (1-f) P w_B) \\
+  &= \exp(-f P (iw_+ + iw_{AB}^{(+)} - w_{AB}^{(-)})
+          - (1-f) P (iw_+ + iw_{AB}^{(+)} + w_{AB}^{(-)})
+         ) \\
+  &= \exp(-P(iw_+ + iw_{AB}^{(+)}) + (2f-1)P w_{AB}^{(-)})
+\end{align*}
+
+and \begin{align*}
+  Q_P &= \exp(-\rho_0 V_P w_A) \\
+      &= \exp(-\rho_0 V_P (iw_+ + iw_{AB}^{(+)} - w_{AB}^{(-)}))
+\end{align*}
+
+Then we can rewrite the Grand Canonical Hamiltonian as
+
+\begin{align*}
+  H_G = - &\frac{\rho_0 V}{2\kappa} (i w_+)^2
+        - \rho_0 V (i w_+)
+        - \frac{\rho_0 V}{\chi} (i w_{AB}^{(+)})^2
+        + \frac{\rho_0 V}{\chi} (w_{AB}^{(-)})^2 \\
+        - &z_D V \exp(-P(iw_+ + iw_{AB}^{(+)}) + (2f-1)P w_{AB}^{(-)}) \\
+        - &z_P V \exp(-\rho_0 V_P (iw_+ + iw_{AB}^{(+)} - w_{AB}^{(-)}))
+\end{align*}
+
+If we solve with simple Euler equations, we get
+
+\begin{align*}
+  w_+^{t+1} &= w_+^t - \lambda_+ \frac{\partial H_G/V}{\partial w_+^t} \\
+  \left. w_{AB}^{(+)} \right|_{t+1} &= \left. w_{AB}^{(+)} \right|_t
+    - \lambda_+ \left. \frac{\partial H_G/V}{\partial w_{AB}^{(+)}} \right|_t \\
+  \left. w_{AB}^{(-)} \right|_{t+1} &= \left. w_{AB}^{(-)} \right|_t
+    - \lambda_- \left. \frac{\partial H_G/V}{\partial w_{AB}^{(-)}} \right|_t
+\end{align*}
+
+with the following derivatives:
+
+\begin{align*}
+  \frac{\partial H}{\partial w_+^t} &=
+  - \frac{\rho_0}{\kappa} (iw_+)
+  - \rho_0
+  - \frac{2 \rho_0}{\chi} (iw_{AB}^{(+)})
+  + \frac{2 \rho_0}{\chi} (w_{AB}^{(-)})
+\end{align*}
+
+\end{document}
