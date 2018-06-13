@@ -8,16 +8,18 @@
 \begin{document}
 
 \begin{center}
-  \textbf{Weakly Compressible AB Diblock + Bare A-like Nanoparticle Derivation
-    with Smearing}
+  \textbf{Weakly Compressible AB Diblock + Bare C-like Nanoparticles with
+    Negative $\chi_{AC}$ and Smearing Derivation}
 \end{center}
 
-\section{Canonical Ensemble Derivation (with $w_+$ and $w_{AB}^{(\pm)}$ fields)}
+\section{Canonical Ensemble Derivation (with $w_+$, $w_{AB}^{(\pm)}$,
+  $w_{AC}^{(\pm)}$, and $w_{AC}^{(\pm)}$ fields)}
 
 The system is composed of $n_D$ AB diblock chains and $n_P$ bare, A-like
   nanoparticles.
 Each diblock chain has $P_A + P_B = P$ segments.
-$\chi$ is the interaction strength between A and B components.
+$\chi_{IJ}$ is the interaction strength between components $I$ and $J$
+  $AB$, $AC$, $BC$.
 Segment center densities are defined as
 \begin{align*}
   \hat{\rho}_{DA,c} (\mathbf{r}) =&
@@ -62,11 +64,11 @@ The harmonic bond potential between connected segments is given by
 \end{align*}
 The nonbonded interaction potential is given by
 \begin{align*}
-  \beta U_1 = \frac{\chi}{\rho_0} \int d\mathbf{r} \hat{\rho}_A \hat{\rho}_B
+  \beta U_1 =
+    \frac{\chi_{AB}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_{DB}
+    + \frac{\chi_{AC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_P
+    + \frac{\chi_{BC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DB} \hat{\rho}_P
 \end{align*}
-where $\hat{\rho}_A = \hat{\rho}_{DA}$ if the particles are neutral or
-  $\hat{\rho}_A = \hat{\rho}_{DA} + \hat{\rho}_P$ if the particles are A-like,
-  and $\hat{\rho}_B = \hat{\rho}_{DB}$.
 A Helfand incompressibility potential penalizes deviations away from $\rho_0$,
   and is given by
 \begin{align*}
@@ -84,29 +86,75 @@ This gives us a canonical partition function of
 \end{align*}
 To prepare this for a particle-to-field transformation, let's define
 \begin{align*}
-  \hat{\rho}_{\pm} (\mathbf{r}) =
-    \hat{\rho}_A(\mathbf{r}) \pm \hat{\rho}_B(\mathbf{r})
+  \hat{\rho}_{AB}^{(\pm)} (\mathbf{r}) =&
+    \hat{\rho}_{DA}(\mathbf{r}) \pm \hat{\rho}_{DB}(\mathbf{r}) \\
+  \hat{\rho}_{AC}^{(\pm)} (\mathbf{r}) =&
+    \hat{\rho}_{DA}(\mathbf{r}) \pm \hat{\rho}_{P}(\mathbf{r}) \\
+  \hat{\rho}_{BC}^{(\pm)} (\mathbf{r}) =&
+    \hat{\rho}_{DB}(\mathbf{r}) \pm \hat{\rho}_{P}(\mathbf{r})
 \end{align*}
-With this definition, we can rewrite $\beta U_1$ as
+With these definitions, we can rewrite $\beta U_1$ as
 \begin{align*}
-  \beta U_1 = \frac{\chi}{4\rho_0}
+  \beta U_1 =
+    \frac{\chi_{AB}}{4\rho_0}
     \int d \mathbf{r}
-    \left( \hat{\rho}_+(\mathbf{r})^2 - \hat{\rho}_-(\mathbf{r})^2 \right)
+    \left(
+      \hat{\rho}_{AB}^{(+)}(\mathbf{r})^2
+      - \hat{\rho}_{AB}^{(-)}(\mathbf{r})^2
+    \right)
+    +
+    \frac{\chi_{AC}}{4\rho_0}
+    \int d \mathbf{r}
+    \left(
+      \hat{\rho}_{AC}^{(+)}(\mathbf{r})^2
+      - \hat{\rho}_{AC}^{(-)}(\mathbf{r})^2
+    \right)
+    +
+    \frac{\chi_{BC}}{4\rho_0}
+    \int d \mathbf{r}
+    \left(
+      \hat{\rho}_{BC}^{(+)}(\mathbf{r})^2
+      - \hat{\rho}_{BC}^{(-)}(\mathbf{r})^2
+    \right)
 \end{align*}
 From there, using the Gaussian functional integral, we get
 \begin{align*}
   \exp(-\beta U_1) =&
-    \frac{1}{\Omega_{AB}^{(+)} \Omega_{AB}^{(-)}}
-    \int \mathcal{D} w_{AB}^{(+)} \int \mathcal{D} w_{AB}^{(-)} \\
+    \frac{1}{
+      \Omega_{AB}^{(+)} \Omega_{AB}^{(-)}
+      \Omega_{AC}^{(+)} \Omega_{AC}^{(-)}
+      \Omega_{BC}^{(+)} \Omega_{BC}^{(-)}
+    }
+    \int \mathcal{D} w_{AB}^{(+)} \int \mathcal{D} w_{AB}^{(-)}
+    \int \mathcal{D} w_{AC}^{(+)} \int \mathcal{D} w_{AC}^{(-)}
+    \int \mathcal{D} w_{BC}^{(+)} \int \mathcal{D} w_{BC}^{(-)}
+    \\
     &\times
     \exp \left(
-      -\frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
-      - i\int d \mathbf{r} \hat{\rho}_+(\mathbf{r}) w_{AB}^{(+)}(\mathbf{r})
+      - \frac{\rho_0}{\chi_{AB}} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
+      - i\int d \mathbf{r} \hat{\rho}_{AB}^{(+)}(\mathbf{r}) w_{AB}^{(+)}(\mathbf{r})
+    \right)
+    \exp \left(
+      - \frac{\rho_0}{\chi_{AB}} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2
+      + \int d \mathbf{r} \hat{\rho}_{AB}^{(-)}(\mathbf{r}) w_{AB}^{(-)}(\mathbf{r})
     \right) \\
     &\times
     \exp \left(
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2
-      +  \int d \mathbf{r} \hat{\rho}_-(\mathbf{r}) w_{AB}^{(-)}(\mathbf{r})
+      - \frac{\rho_0}{\chi_{AC}} \int d \mathbf{r} w_{AC}^{(+)}(\mathbf{r})^2
+      + \int d \mathbf{r} \hat{\rho}_{AC}^{(+)}(\mathbf{r}) w_{AC}^{(+)}(\mathbf{r})
+    \right)
+    \exp \left(
+      - \frac{\rho_0}{\chi_{AC}} \int d \mathbf{r} w_{AC}^{(-)}(\mathbf{r})^2
+      - i\int d \mathbf{r} \hat{\rho}_{AC}^{(-)}(\mathbf{r}) w_{AC}^{(-)}(\mathbf{r})
+    \right) \\
+    &\times
+    \exp \left(
+      -\frac{\rho_0}{\chi_{BC}} \int d \mathbf{r} w_{BC}^{(+)}(\mathbf{r})^2
+      - i\int d \mathbf{r} \hat{\rho}_{BC}^{(+)}(\mathbf{r}) w_{BC}^{(+)}(\mathbf{r})
+    \right)
+    \exp \left(
+      - \frac{\rho_0}{\chi_{BC}} \int d \mathbf{r} w_{BC}^{(-)}(\mathbf{r})^2
+      + \int d \mathbf{r} \hat{\rho}_{BC}^{(-)}(\mathbf{r}) w_{BC}^{(-)}(\mathbf{r})
     \right)
 \end{align*}
 and
@@ -120,41 +168,67 @@ and
       + i\int d \mathbf{r} (\rho_0 - \hat{\rho}_+(\mathbf{r})) w_+(\mathbf{r})
     \right) \\
 \end{align*}
+Notice that since $\chi_{AC} < 0$, the prefactors of $+1$ and $-i$ on the
+  second terms in the exponentials with $\chi_{AC}$ are switched.
+(See Fredrickson eqns C.27 and C.28.)
+Before moving on, to make our lives easier, let's define
+\begin{align*}
+  \Omega =
+    \Omega_+
+    \Omega_{AB}^{(+)} \Omega_{AB}^{(-)}
+    \Omega_{AC}^{(+)} \Omega_{AC}^{(-)}
+    \Omega_{BC}^{(+)} \Omega_{BC}^{(-)}
+\end{align*}
 Now the canonical partition function looks like
 \begin{align*}
   Z_C =& \frac{1}{n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
-    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
-    \int \mathcal{D} w_+
-    \int \mathcal{D} w_{AB}^{(+)}
-    \int \mathcal{D} w_{AB}^{(-)} \\
+    \frac{1}{\Omega}
+    \int \hdots \int \mathcal{D} \{w\} \\
+    % \int \mathcal{D} w_{AB}^{(+)}
+    % \int \mathcal{D} w_{AB}^{(-)} \\
     &\times
     \exp \left(
       - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
       + i \rho_0 \int d\mathbf{r} w_+
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+      - \sum_{IJ \in \{AB,AC,BC\}}
+      \frac{\rho_0}{\chi_{IJ}}
+      \int d \mathbf{r}
+      \left(
+        w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
+      \right)
     \right) \\
     &\times \int d \mathbf{r}^{n_DN_D} \int d \mathbf{r}^{n_P}
     \exp \left(
       - \sum_{i=1}^{n_D}    \sum_{j=1}^{P-1}
       \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
            { 2 b^2 }
-      + \int d \mathbf{r} \left( -i w_+ \hat{\rho}_+
-                                 -i w_{AB}^{(+)} \hat{\rho}_+
-                                 +  w_{AB}^{(-)} \hat{\rho}_- \right)
+      - i\int d \mathbf{r} w_+ \hat{\rho}_+
+    \right) \\
+    &\times
+    \exp \left(
+      \int d \mathbf{r} \left(
+        -i \hat{\rho}_{AB}^{(+)} w_{AB}^{(+)}
+        + \hat{\rho}_{AB}^{(-)} w_{AB}^{(-)}
+        + \hat{\rho}_{AC}^{(+)} w_{AC}^{(+)}
+        -i \hat{\rho}_{AC}^{(-)} w_{AC}^{(-)}
+        -i \hat{\rho}_{BC}^{(+)} w_{BC}^{(+)}
+        + \hat{\rho}_{BC}^{(-)} w_{BC}^{(-)}
+      \right)
     \right)
 \end{align*}
-Using the definitions of $\hat{\rho}_\pm$, and defining
-  $w_A= i w_+ + i w_{AB}^{(+)} - w_{AB}^{(-)} $ and
-  $w_B= i w_+ + i w_{AB}^{(+)} + w_{AB}^{(-)} $ we can rewrite
+Using the definitions of $\hat{\rho}_{IJ}^{(\pm)}$, and defining
 \begin{align*}
-  \exp \left(
-    \int d \mathbf{r} \left( -i w_+ \hat{\rho}_+
-                             -i w_{AB}^{(+)} \hat{\rho}_+
-                             +  w_{AB}^{(-)} \hat{\rho}_- \right)
-  \right)
+  w_A &=
+    i \left( w_+ + w_{AB}^{(+)} + w_{AC}^{(-)} \right)
+    - w_{AB}^{(-)} - w_{AC}^{(+)} \\
+  w_B &=
+    i \left( w_+ + w_{AB}^{(+)} + w_{BC}^{(+)} \right)
+    - w_{AB}^{(-)} - w_{AC}^{(-)} \\
+  w_C &=
+    i \left( w_+ + w_{AC}^{(-)} + w_{BC}^{(+)} \right)
+    - w_{AC}^{(+)} - w_{BC}^{(-)},
 \end{align*}
-as
+  we can rewrite all the $\exp(\int d \mathbf{r} w\hat{\rho})$ type terms as
 \begin{align*}
   \prod_{j}^{n_{D}N_{DA}}
   \exp \left( -\omega_A(\mathbf{r}_j) \right)
@@ -169,7 +243,7 @@ where $\omega_A$ and $\omega_B$ are defined as
 \end{align*}
 and $\omega_P$ is defined as
 \begin{align*}
-  \omega_P(\mathbf{r}) = (\Gamma \ast w_A)(\mathbf{r})
+  \omega_P(\mathbf{r}) = (\Gamma \ast w_C)(\mathbf{r})
 \end{align*}
 Additionally, defining the bond transition probability $\Phi$ as
 \begin{align*}
@@ -180,16 +254,18 @@ Additionally, defining the bond transition probability $\Phi$ as
 we can rewrite the canonical partition function equation as
 \begin{align*}
   Z_C =& \frac{1}{n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
-    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
-    \int \mathcal{D} w_+
-    \int \mathcal{D} w_{AB}^{(+)}
-    \int \mathcal{D} w_{AB}^{(-)} \\
+    \frac{1}{\Omega}
+    \int \hdots \int \mathcal{D} \{w\} \\
     &\times
     \exp \left(
       - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
       + i \rho_0 \int d\mathbf{r} w_+
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+      - \sum_{IJ}
+      \frac{\rho_0}{\chi_{IJ}}
+      \int d \mathbf{r}
+      \left(
+        w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
+      \right)
     \right) \\
     &\times \int d \mathbf{r}^{n_DN_D} \int d \mathbf{r}^{n_P}
       \prod_j^{n_D} \prod_k^{N_D-1}
@@ -219,29 +295,32 @@ With these definitions, we get
 \begin{align*}
   Z_C =& \frac{V^{n_D+n_P}}
               {n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
-    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \frac{1}{\Omega}
     \left( \frac{2\pi b^2}{3} \right)
       ^{(d/2)n_D(N_D-1)}
-    \int \mathcal{D} w_+ \iint \mathcal{D} w_{AB}^{(\pm)} \\
+    \int \hdots \int \mathcal{D} \{w\} \\
     &\times \exp \left(
       - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
       + i \rho_0 \int d\mathbf{r} w_+
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+      - \sum_{IJ}
+      \frac{\rho_0}{\chi_{IJ}}
+      \int d \mathbf{r}
+      \left(
+        w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
+      \right)
     \right) \\
-    &Q_D^{n_D} Q_P^{n_P}
+    &\times Q_D^{n_D} Q_P^{n_P}
 \end{align*}
 We can rewrite this as
 \begin{align*}
   Z_C =& \frac{V^{n_D+n_P}}
               {n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
-    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
+    \frac{1}{\Omega}
     \left( \frac{2\pi b^2}{3} \right)
       ^{(d/2)n_D(N_D-1)} \\
-    &\int \mathcal{D} w_+
-    \iint \mathcal{D} w_{AB}^{(\pm)}
+    &\int \hdots \int \mathcal{D} \{w\}
     \exp \left(
-      -\mathcal{H}[w_+, w_{AB}^{(\pm)}]
+      -\mathcal{H}[\{w\}]
     \right)
 \end{align*}
 where
@@ -249,8 +328,12 @@ where
   \mathcal{H}[w_+, w_{AB}^{(\pm)}] =&
     \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
     - i \rho_0 \int d\mathbf{r} w_+
-    + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
-    + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2 \\
+    + \sum_{IJ}
+    \frac{\rho_0}{\chi_{IJ}}
+    \int d \mathbf{r}
+    \left(
+      w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
+    \right) \\
     &- n_D \log Q_D - n_P \log Q_P
 \end{align*}
 
@@ -283,8 +366,8 @@ and
 Now we can rewrite equation $Z_G$ as
 \begin{align*}
   Z_G(\mu_D, \mu_P, V, T) =&
-    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
-    \int \mathcal{D} w_+ \iint \mathcal{D} w_{AB}^{(\pm)} \\
+    \frac{1}{\Omega}
+    \int \hdots \int \mathcal{D} \{w\} \\
     &\times \exp \left(
       - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
       + i \rho_0 \int d\mathbf{r} w_+
@@ -293,31 +376,40 @@ Now we can rewrite equation $Z_G$ as
     \right) \\
     &\times \sum_{n_D}^\infty \frac{(z_DVQ_D)^{n_D}}{n_D!}
     \sum_{n_P}^\infty \frac{(z_PVQ_P)^{n_P}}{n_P!} \\
-    =& \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
-    \int \mathcal{D} w_+
-    \iint \mathcal{D} w_{AB}^{(\pm)} \\
+    =& \frac{1}{\Omega}
+    \int \hdots \int \mathcal{D} \{w\} \\
     &\times \exp \left(
       - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
       + i \rho_0 \int d\mathbf{r} w_+
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
+      - \sum_{IJ}
+      \frac{\rho_0}{\chi_{IJ}}
+      \int d \mathbf{r}
+      \left(
+        w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
+      \right)
     \right) \\
     &\times \exp (z_DVQ_D) \exp (z_PVQ_P)
 \end{align*}
 And finally, we get
 \begin{align*}
   Z_G(\mu_D, \mu_P, V, T) =&
-    \frac{1}{\Omega_+ \Omega_{AB}^{(+)} \Omega_{AB}^{(-)} }
-    \int \mathcal{D} w_+ \iint \mathcal{D} w_{AB}^{(\pm)}
-    \exp \left( - \mathcal{H}_G \left[w_+, w_{AB}^{(\pm)} \right] \right)
+    \frac{1}{\Omega}
+    \int \hdots \int \mathcal{D} \{w\}
+    \exp \left( - \mathcal{H}_G \left[\{w\} \right] \right)
 \end{align*}
 where
 \begin{align*}
-  \mathcal{H}_G[w_+, w_{AB}^{(\pm)}] =&
+  \mathcal{H}_G[\{w\}] =&
     \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
     - i \rho_0 \int d\mathbf{r} w_+
-    + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
-    + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2 \\
+    + \sum_{IJ}
+    \frac{\rho_0}{\chi_{IJ}}
+    \int d \mathbf{r}
+    \left(
+      w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
+    \right)
+    % + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
+    % + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2 \\
     &- z_D V Q_D - z_P V Q_P
 \end{align*}
 
@@ -419,35 +511,30 @@ Then
 For the $w_{AB}^{(+)}$ field, the relevant expressions are:
 \begin{align*}
   \left. \frac{\delta \mathcal{H}}{\delta  w_{AB}^{(+)} } \right|_t &=
-    \frac{2\rho_0}{\chi} \left. w_{AB}^{(+)} \right|_t
+    \frac{2\rho_0}{\chi_{AB}} \left. w_{AB}^{(+)} \right|_t
     + i [ (\rho_{DA,c} \ast h)(\mathbf{r})
-          + (\rho_{DB,c} \ast h)(\mathbf{r})
-          + (\rho_{P,c} \ast \Gamma)(\mathbf{r}) ] \\
+          + (\rho_{DB,c} \ast h)(\mathbf{r}) ] \\
     \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AB}^{(+)}}} \right|_t &=
-    \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(+)} \right|_t
+    \frac{2\rho_0}{\chi_{AB}} \left. \hat{w}_{AB}^{(+)} \right|_t
     + i [ \hat{\rho}_{DA,c} \hat{h}
-          + \hat{\rho}_{DB,c} \hat{h}
-          + \hat{\rho}_{P,c}  \hat{\Gamma} ] \\
+          + \hat{\rho}_{DB,c} \hat{h} ] \\
   \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AB}^{(+)}}} \right| ^{lin}_t &=
-    \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(+)} \right|_t
+    \frac{2\rho_0}{\chi_{AB}} \left. \hat{w}_{AB}^{(+)} \right|_t
     - i \hat{h}^2 \phi_D \rho_0 N_D
       (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) i \left.
-        \hat{w}_{AB}^{(+)} \right|_t
-    - i \phi_P \rho_0 \hat{\Gamma}^2 i \left. \hat{w}_{AB}^{(+)} \right|_t \\
-  &= \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(+)} \right|_t
+        \hat{w}_{AB}^{(+)} \right|_t \\
+  &= \frac{2\rho_0}{\chi_{AB}} \left. \hat{w}_{AB}^{(+)} \right|_t
     + \hat{h}^2 \phi_D \rho_0 N_D
       (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
         \left. \hat{w}_{AB}^{(+)} \right|_t
-    + \phi_P \rho_0 \hat{\Gamma}^2 \left. \hat{w}_{AB}^{(+)} \right|_t
 \end{align*}
 This gives us
 \begin{align*}
   \left. \hat{w}_{AB}^{(+)} \right|_{t+1} =
     \left. \hat{w}_{AB}^{(+)} \right|_t - \lambda \left[
-      \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(+)} \right|_t
+      \frac{2\rho_0}{\chi_{AB}} \left. \hat{w}_{AB}^{(+)} \right|_t
       + i ( \hat{\rho}_{DA,c} \hat{h}
-            + \hat{\rho}_{DB,c} \hat{h}
-            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+            + \hat{\rho}_{DB,c} \hat{h} )
       + A ( \left. \hat{w}_{AB}^{(+)} \right|_{t+1}
             - \left. \hat{w}_{AB}^{(+)} \right|_t)
     \right]
@@ -455,20 +542,17 @@ This gives us
 where
 \begin{align*}
   A &=
-  \frac{2\rho_0}{\chi}
+  \frac{2\rho_0}{\chi_{AB}}
       + \hat{h}^2 \phi_D \rho_0 N_D
         (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
-      + \phi_P \rho_0 \hat{\Gamma}^2
 \end{align*}
 If we let $B$ and $F$ equal
 \begin{align*}
-  B &= A - \frac{2\rho_0}{\chi} \\
+  B &= A - \frac{2\rho_0}{\chi_{AB}} \\
     &= \hat{h}^2 \phi_D \rho_0 N_D
-        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
-      + \phi_P \rho_0 \hat{\Gamma}^2 \\
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) \\
   F &= + i ( \hat{\rho}_{DA,c} \hat{h}
-            + \hat{\rho}_{DB,c} \hat{h}
-            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+            + \hat{\rho}_{DB,c} \hat{h} )
 \end{align*}
 Then
 \begin{align*}
@@ -486,19 +570,17 @@ Then
 For the $w_{AB}^{(-)}$ field, the relevant expressions are:
 \begin{align*}
   \left. \frac{\delta \mathcal{H}}{\delta w_{AB}^{(-)}} \right|_t &=
-    \frac{2 \rho_0}{\chi} \left. w_{AB}^{(-)} \right|_t
+    \frac{2 \rho_0}{\chi_{AB}} \left. w_{AB}^{(-)} \right|_t
     - (\rho_{DA,c} \ast h)(\mathbf{r})
-    + (\rho_{DB,c} \ast h)(\mathbf{r})
-    - (\rho_{P,c} \ast \Gamma)(\mathbf{r}) \\
+    + (\rho_{DB,c} \ast h)(\mathbf{r}) \\
   \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AB}^{(-)}}} \right|_t &=
-    \frac{2 \rho_0}{\chi} \left. \hat{w}_{AB}^{(-)} \right|_t
+    \frac{2 \rho_0}{\chi_{AB}} \left. \hat{w}_{AB}^{(-)} \right|_t
     - \hat{\rho}_{DA,c} \hat{h}
-    + \hat{\rho}_{DB,c} \hat{h}
-    - \hat{\rho}_{P,c}  \hat{\Gamma} \\
+    + \hat{\rho}_{DB,c} \hat{h} \\
   \left.
     \hat{\frac{\delta \mathcal{H}}{\delta w_{AB}^{(-)}}}
   \right| ^{lin}_t &=
-    \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(-)} \right|_t
+    \frac{2\rho_0}{\chi_{AB}} \left. \hat{w}_{AB}^{(-)} \right|_t
 \end{align*}
 Note that we don't do the weak inhomogeneity expansion here because the
   $w_{AB}^{(-)}$ field tends to be much less stiff than the $w_+$ fields and so
@@ -507,31 +589,255 @@ Now we get
 \begin{align*}
   \left. \hat{w}_{AB}^{(-)} \right|_{t+1} &=
     \left. \hat{w}_{AB}^{(-)} \right|_t - \lambda \left[
-      \frac{2\rho_0}{\chi} \left. \hat{w}_{AB}^{(-)} \right|_t
+      \frac{2\rho_0}{\chi_{AB}} \left. \hat{w}_{AB}^{(-)} \right|_t
       - \hat{\rho}_{DA,c} \hat{h}
       + \hat{\rho}_{DB,c} \hat{h}
-      - \hat{\rho}_{P,c}  \hat{\Gamma}
-      + \frac{2\rho_0}{\chi}
+      + \frac{2\rho_0}{\chi_{AB}}
         ( \left. \hat{w}_{AB}^{(-)}\right|_{t+1}
           - \left. \hat{w}_{AB}^{(-)} \right|_t
         )
     \right] \\
-  \left. \hat{w}_{AB}^{(-)} \right|_{t+1} ( 1 + \lambda \frac{2 \rho_0}{\chi} ) &=
+  \left. \hat{w}_{AB}^{(-)} \right|_{t+1} ( 1 + \lambda \frac{2
+    \rho_0}{\chi_{AB}} ) &=
     \left. \hat{w}_{AB}^{(-)} \right|_t - \lambda \left(
       - \hat{\rho}_{DA,c} \hat{h}
       + \hat{\rho}_{DB,c} \hat{h}
-      - \hat{\rho}_{P,c}  \hat{\Gamma}
     \right) \\
   \left. \hat{w}_{AB}^{(-)} \right|_{t+1} &=
     \frac{
       \left. \hat{w}_{AB}^{(-)} \right|_t - \lambda \left(
         - \hat{\rho}_{DA,c} \hat{h}
         + \hat{\rho}_{DB,c} \hat{h}
+      \right)
+    }
+    {
+      \left( 1 + \lambda \frac{2 \rho_0}{\chi_{AB}} \right)
+    }
+\end{align*}
+
+\subsection{$w_{AC}^{(-)}$}
+
+For the $w_{AC}^{(-)}$ field, the relevant expressions are:
+\begin{align*}
+  \left. \frac{\delta \mathcal{H}}{\delta  w_{AC}^{(-)} } \right|_t &=
+    \frac{2\rho_0}{\chi_{AC}} \left. w_{AC}^{(-)} \right|_t
+    + i [ (\rho_{DA,c} \ast h)(\mathbf{r})
+          + (\rho_{P,c} \ast \Gamma)(\mathbf{r}) ] \\
+    \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AC}^{(-)}}} \right|_t &=
+    \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(-)} \right|_t
+    + i [ \hat{\rho}_{DA,c} \hat{h}
+          + \hat{\rho}_{P,c}  \hat{\Gamma} ] \\
+  \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AC}^{(-)}}} \right| ^{lin}_t &=
+    \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(-)} \right|_t
+    - i \hat{h}^2 f_A \phi_D \rho_0 N_D
+      (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) i \left.
+        \hat{w}_{AC}^{(-)} \right|_t
+    - i \phi_P \rho_0 \hat{\Gamma}^2 i \left. \hat{w}_{AC}^{(-)} \right|_t \\
+  &= \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AB}^{(-)} \right|_t
+    + \hat{h}^2 f_A \phi_D \rho_0 N_D
+      (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+        \left. \hat{w}_{AC}^{(-)} \right|_t
+    + \phi_P \rho_0 \hat{\Gamma}^2 \left. \hat{w}_{AC}^{(-)} \right|_t
+\end{align*}
+This gives us
+\begin{align*}
+  \left. \hat{w}_{AC}^{(-)} \right|_{t+1} =
+    \left. \hat{w}_{AC}^{(-)} \right|_t - \lambda \left[
+      \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(-)} \right|_t
+      + i ( \hat{\rho}_{DA,c} \hat{h}
+            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+      + A ( \left. \hat{w}_{AC}^{(-)} \right|_{t+1}
+            - \left. \hat{w}_{AC}^{(-)} \right|_t)
+    \right]
+\end{align*}
+where
+\begin{align*}
+  A &=
+  \frac{2\rho_0}{\chi_{AC}}
+      + \hat{h}^2 f_A \phi_D \rho_0 N_D
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+      + \phi_P \rho_0 \hat{\Gamma}^2
+\end{align*}
+If we let $B$ and $F$ equal
+\begin{align*}
+  B &= A - \frac{2\rho_0}{\chi_{AC}} \\
+    &= \hat{h}^2 f_A \phi_D \rho_0 N_D
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+      + \phi_P \rho_0 \hat{\Gamma}^2 \\
+  F &= + i ( \hat{\rho}_{DA,c} \hat{h}
+            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+\end{align*}
+Then
+\begin{align*}
+  \left. \hat{w}_{AC}^{(-)} \right|_{t+1} ( 1 + \lambda A ) =
+    \left. \hat{w}_{AC}^{(-)} \right|_t
+    - \lambda \left( F - B \left. \hat{w}_{AC}^{(-)} \right|_t \right) \\
+  \left. \hat{w}_{AC}^{(-)} \right|_{t+1} =
+  \frac{\left. \hat{w}_{AC}^{(-)} \right|_t - \lambda
+          \left( F - B \left. \hat{w}_{AC}^{(-)} \right|_t \right)}
+       {1 + \lambda A}
+\end{align*}
+
+\subsection{$w_{AC}^{(+)}$ Field}
+
+For the $w_{AC}^{(+)}$ field, the relevant expressions are:
+\begin{align*}
+  \left. \frac{\delta \mathcal{H}}{\delta w_{AC}^{(+)}} \right|_t &=
+    \frac{2 \rho_0}{\chi_{AC}} \left. w_{AC}^{(+)} \right|_t
+    - (\rho_{DA,c} \ast h)(\mathbf{r})
+    - (\rho_{P,c} \ast \Gamma)(\mathbf{r}) \\
+  \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AC}^{(+)}}} \right|_t &=
+    \frac{2 \rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(+)} \right|_t
+    - \hat{\rho}_{DA,c} \hat{h}
+    - \hat{\rho}_{P,c}  \hat{\Gamma} \\
+  \left.
+    \hat{\frac{\delta \mathcal{H}}{\delta w_{AC}^{(+)}}}
+  \right| ^{lin}_t &=
+    \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(+)} \right|_t
+\end{align*}
+Note that we don't do the weak inhomogeneity expansion here because the
+  $w_{AC}^{(+)}$ field tends to be much less stiff than the $w_+$ fields and so
+  doesn't need the extra approximation.
+Now we get
+\begin{align*}
+  \left. \hat{w}_{AC}^{(+)} \right|_{t+1} &=
+    \left. \hat{w}_{AC}^{(+)} \right|_t - \lambda \left[
+      \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(+)} \right|_t
+      - \hat{\rho}_{DA,c} \hat{h}
+      - \hat{\rho}_{P,c}  \hat{\Gamma}
+      + \frac{2\rho_0}{\chi_{AC}}
+        ( \left. \hat{w}_{AC}^{(+)}\right|_{t+1}
+          - \left. \hat{w}_{AC}^{(+)} \right|_t
+        )
+    \right] \\
+  \left. \hat{w}_{AC}^{(+)} \right|_{t+1} ( 1 + \lambda \frac{2
+    \rho_0}{\chi_{AC}} ) &=
+    \left. \hat{w}_{AC}^{(+)} \right|_t - \lambda \left(
+      - \hat{\rho}_{DA,c} \hat{h}
+      - \hat{\rho}_{P,c}  \hat{\Gamma}
+    \right) \\
+  \left. \hat{w}_{AC}^{(+)} \right|_{t+1} &=
+    \frac{
+      \left. \hat{w}_{AC}^{(+)} \right|_t - \lambda \left(
+        - \hat{\rho}_{DA,c} \hat{h}
         - \hat{\rho}_{P,c}  \hat{\Gamma}
       \right)
     }
     {
-      \left( 1 + \lambda \frac{2 \rho_0}{\chi} \right)
+      \left( 1 + \lambda \frac{2 \rho_0}{\chi_{AC}} \right)
+    }
+\end{align*}
+
+\subsection{$w_{BC}^{(+)}$}
+
+For the $w_{BC}^{(+)}$ field, the relevant expressions are:
+\begin{align*}
+  \left. \frac{\delta \mathcal{H}}{\delta  w_{AC}^{(-)} } \right|_t &=
+    \frac{2\rho_0}{\chi_{AC}} \left. w_{AC}^{(-)} \right|_t
+    + i [ (\rho_{DA,c} \ast h)(\mathbf{r})
+          + (\rho_{P,c} \ast \Gamma)(\mathbf{r}) ] \\
+    \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AC}^{(-)}}} \right|_t &=
+    \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(-)} \right|_t
+    + i [ \hat{\rho}_{DA,c} \hat{h}
+          + \hat{\rho}_{P,c}  \hat{\Gamma} ] \\
+  \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AC}^{(-)}}} \right| ^{lin}_t &=
+    \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(-)} \right|_t
+    - i \hat{h}^2 f_A \phi_D \rho_0 N_D
+      (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) i \left.
+        \hat{w}_{AC}^{(-)} \right|_t
+    - i \phi_P \rho_0 \hat{\Gamma}^2 i \left. \hat{w}_{AC}^{(-)} \right|_t \\
+  &= \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AB}^{(-)} \right|_t
+    + \hat{h}^2 f_A \phi_D \rho_0 N_D
+      (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+        \left. \hat{w}_{AC}^{(-)} \right|_t
+    + \phi_P \rho_0 \hat{\Gamma}^2 \left. \hat{w}_{AC}^{(-)} \right|_t
+\end{align*}
+This gives us
+\begin{align*}
+  \left. \hat{w}_{AC}^{(-)} \right|_{t+1} =
+    \left. \hat{w}_{AC}^{(-)} \right|_t - \lambda \left[
+      \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(-)} \right|_t
+      + i ( \hat{\rho}_{DA,c} \hat{h}
+            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+      + A ( \left. \hat{w}_{AC}^{(-)} \right|_{t+1}
+            - \left. \hat{w}_{AC}^{(-)} \right|_t)
+    \right]
+\end{align*}
+where
+\begin{align*}
+  A &=
+  \frac{2\rho_0}{\chi_{AC}}
+      + \hat{h}^2 f_A \phi_D \rho_0 N_D
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+      + \phi_P \rho_0 \hat{\Gamma}^2
+\end{align*}
+If we let $B$ and $F$ equal
+\begin{align*}
+  B &= A - \frac{2\rho_0}{\chi_{AC}} \\
+    &= \hat{h}^2 f_A \phi_D \rho_0 N_D
+        (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
+      + \phi_P \rho_0 \hat{\Gamma}^2 \\
+  F &= + i ( \hat{\rho}_{DA,c} \hat{h}
+            + \hat{\rho}_{P,c}  \hat{\Gamma} )
+\end{align*}
+Then
+\begin{align*}
+  \left. \hat{w}_{AC}^{(-)} \right|_{t+1} ( 1 + \lambda A ) =
+    \left. \hat{w}_{AC}^{(-)} \right|_t
+    - \lambda \left( F - B \left. \hat{w}_{AC}^{(-)} \right|_t \right) \\
+  \left. \hat{w}_{AC}^{(-)} \right|_{t+1} =
+  \frac{\left. \hat{w}_{AC}^{(-)} \right|_t - \lambda
+          \left( F - B \left. \hat{w}_{AC}^{(-)} \right|_t \right)}
+       {1 + \lambda A}
+\end{align*}
+
+\subsection{$w_{BC}^{(-)}$ Field}
+
+For the $w_{BC}^{(-)}$ field, the relevant expressions are:
+\begin{align*}
+  \left. \frac{\delta \mathcal{H}}{\delta w_{AC}^{(+)}} \right|_t &=
+    \frac{2 \rho_0}{\chi_{AC}} \left. w_{AC}^{(+)} \right|_t
+    - (\rho_{DA,c} \ast h)(\mathbf{r})
+    - (\rho_{P,c} \ast \Gamma)(\mathbf{r}) \\
+  \left. \hat{\frac{\delta \mathcal{H}}{\delta w_{AC}^{(+)}}} \right|_t &=
+    \frac{2 \rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(+)} \right|_t
+    - \hat{\rho}_{DA,c} \hat{h}
+    - \hat{\rho}_{P,c}  \hat{\Gamma} \\
+  \left.
+    \hat{\frac{\delta \mathcal{H}}{\delta w_{AC}^{(+)}}}
+  \right| ^{lin}_t &=
+    \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(+)} \right|_t
+\end{align*}
+Note that we don't do the weak inhomogeneity expansion here because the
+  $w_{AC}^{(+)}$ field tends to be much less stiff than the $w_+$ fields and so
+  doesn't need the extra approximation.
+Now we get
+\begin{align*}
+  \left. \hat{w}_{AC}^{(+)} \right|_{t+1} &=
+    \left. \hat{w}_{AC}^{(+)} \right|_t - \lambda \left[
+      \frac{2\rho_0}{\chi_{AC}} \left. \hat{w}_{AC}^{(+)} \right|_t
+      - \hat{\rho}_{DA,c} \hat{h}
+      - \hat{\rho}_{P,c}  \hat{\Gamma}
+      + \frac{2\rho_0}{\chi_{AC}}
+        ( \left. \hat{w}_{AC}^{(+)}\right|_{t+1}
+          - \left. \hat{w}_{AC}^{(+)} \right|_t
+        )
+    \right] \\
+  \left. \hat{w}_{AC}^{(+)} \right|_{t+1} ( 1 + \lambda \frac{2
+    \rho_0}{\chi_{AC}} ) &=
+    \left. \hat{w}_{AC}^{(+)} \right|_t - \lambda \left(
+      - \hat{\rho}_{DA,c} \hat{h}
+      - \hat{\rho}_{P,c}  \hat{\Gamma}
+    \right) \\
+  \left. \hat{w}_{AC}^{(+)} \right|_{t+1} &=
+    \frac{
+      \left. \hat{w}_{AC}^{(+)} \right|_t - \lambda \left(
+        - \hat{\rho}_{DA,c} \hat{h}
+        - \hat{\rho}_{P,c}  \hat{\Gamma}
+      \right)
+    }
+    {
+      \left( 1 + \lambda \frac{2 \rho_0}{\chi_{AC}} \right)
     }
 \end{align*}
 
