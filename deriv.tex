@@ -66,7 +66,7 @@ The nonbonded interaction potential is given by
 \begin{align*}
   \beta U_1 =
     \frac{\chi_{AB}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_{DB}
-    + \frac{\chi_{AC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_P
+    + \frac{- \chi_{AC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_P
     + \frac{\chi_{BC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DB} \hat{\rho}_P
 \end{align*}
 A Helfand incompressibility potential penalizes deviations away from $\rho_0$,
@@ -103,7 +103,7 @@ With these definitions, we can rewrite $\beta U_1$ as
       - \hat{\rho}_{AB}^{(-)}(\mathbf{r})^2
     \right)
     +
-    \frac{\chi_{AC}}{4\rho_0}
+    \frac{- \chi_{AC}}{4\rho_0}
     \int d \mathbf{r}
     \left(
       \hat{\rho}_{AC}^{(+)}(\mathbf{r})^2
